@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather App</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <div class="app">
+    <h1 class="app__title">Weather App</h1>
+
+    <form class="weather-form" id="weatherForm">
+      <input
+        class="weather-form__input"
+        id="cityInput"
+        type="text"
+        placeholder="Введите город"
+        autocomplete="off"
+      />
+      <button class="weather-form__button" type="submit">
+        Найти
+      </button>
+    </form>
+
+    <button class="last-search-btn" id="lastSearchBtn" type="button">
+      Повторить последний поиск
+    </button>
+
+    <p class="message message--loading hidden" id="loadingMessage">
+      Загрузка...
+    </p>
+
+    <p class="message message--error hidden" id="errorMessage">
+      Ошибка при получении данных
+    </p>
+
+    <section class="weather-card hidden" id="weatherCard">
+      <h2 class="weather-card__city" id="cityName">Город</h2>
+      <p class="weather-card__temp" id="temperature">0°C</p>
+      <p class="weather-card__desc" id="description">Ясно</p>
+
+      <div class="weather-card__details">
+        <p id="humidity">Влажность: 0%</p>
+        <p id="wind">Ветер: 0 км/ч</p>
+      </div>
+    </section>
+
+    <section class="history">
+      <h2 class="history__title">Последние поиски</h2>
+      <ul class="history__list" id="historyList"></ul>
+    </section>
+  </div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
