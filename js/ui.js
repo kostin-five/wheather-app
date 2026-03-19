@@ -2,6 +2,7 @@ const messageError = document.querySelector("#errorMessage");
 const loading = document.querySelector("#loadingMessage");
 const cardResult = document.querySelector("#weatherCard");
 const history = document.querySelector(".history");
+const historyList = document.querySelector("#historyList");
 
 export function getWeatherDescription(code) {
   switch (code) {
@@ -43,4 +44,15 @@ export function showCard() {
   loading.classList.add("hidden");
   messageError.classList.add("hidden");
   cardResult.classList.remove("hidden");
+}
+
+export function renderHistory(historyArray) {
+  if (!historyList) {
+    return;
+  } else {
+    historyList.innerHTML = `
+    ${historyArray.map((city) => `<li>${city}</li>`).join("")}
+  `;
+  }
+  toggleHistoryTitle();
 }

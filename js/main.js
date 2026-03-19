@@ -2,10 +2,14 @@ const form = document.querySelector("#weatherForm");
 const input = document.querySelector("#cityInput");
 const lastBtn = document.querySelector("#lastSearchBtn");
 
-import { toggleHistoryTitle, showCard, showError, showLoading } from "./ui.js";
+import { showCard, showError, showLoading, renderHistory } from "./ui.js";
 import { fetchWeather } from "./api.js";
 
-toggleHistoryTitle();
+if (localStorage.getItem("historyArray")) {
+  renderHistory(JSON.parse(localStorage.getItem("historyArray")));
+} else {
+  renderHistory([]);
+}
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -22,6 +26,7 @@ form.addEventListener("submit", async (e) => {
       showCard();
       if (!localStorage.getItem("historyArray")) {
         localStorage.setItem("historyArray", JSON.stringify([city]));
+        renderHistory(JSON.parse(localStorage.getItem("historyArray")));
       } else {
         const arrayData = JSON.parse(localStorage.getItem("historyArray"));
         const newArrayData = arrayData.filter((x) => x !== city);
@@ -32,9 +37,17 @@ form.addEventListener("submit", async (e) => {
           "historyArray",
           JSON.stringify([...newArrayData, city])
         );
+        renderHistory(JSON.parse(localStorage.getItem("historyArray")));
       }
     } else {
       showError("Ошибка: город не найден");
     }
+  }
+});
+
+lastBtn.addEventListener("click", () => {
+  if (localStorage.getItem("historyArray")) {
+    const lastCity = JSON.parse(localStorage.getItem("historyArray")).pop();
+    input.value = lastCity;
   }
 });
