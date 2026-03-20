@@ -46,8 +46,8 @@ export async function getWeatherData(latitude, longitude) {
     const windSpeedData = currentData.wind_speed_10m;
     const weatherCodeData = currentData.weather_code;
     temperature.textContent = `${temperatureData}°C`;
-    humidity.textContent = `Влажность: ${humidityData}%`;
-    wind.textContent = `Ветер: ${windSpeedData} км/ч`;
+    humidity.textContent = `Влажность: ${humidityData}% 💧`;
+    wind.textContent = `Ветер: ${windSpeedData} км/ч 💨`;
     description.textContent = getWeatherDescription(weatherCodeData);
     return true;
   } catch (e) {

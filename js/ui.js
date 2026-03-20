@@ -7,15 +7,15 @@ const historyList = document.querySelector("#historyList");
 export function getWeatherDescription(code) {
   switch (code) {
     case 0:
-      return "Ясно";
+      return "Ясно ☀️";
     case 1:
-      return "Преимущественно ясно";
+      return "Преимущественно ясно 🌤️";
     case 2:
-      return "Переменная облачность";
+      return "Переменная облачность ☁️";
     case 3:
-      return "Пасмурно";
+      return "Пасмурно 🌧️";
     default:
-      return "Неизвестная погода";
+      return "Неизвестная погода 🌫️";
   }
 }
 
