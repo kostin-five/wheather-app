@@ -57,11 +57,11 @@ lastBtn.addEventListener("click", async () => {
   }
 });
 
-historyList.addEventListener("click", (event) => {
+historyList.addEventListener("click", async (event) => {
   const item = event.target.closest("li");
   if (item) {
     const city = item.textContent;
     input.value = city;
-    handleCitySearch(city);
+    await handleCitySearch(city);
   }
 });
