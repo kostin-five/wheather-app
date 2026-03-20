@@ -6,11 +6,7 @@ const historyList = document.querySelector("#historyList");
 import { showCard, showError, showLoading, renderHistory } from "./ui.js";
 import { fetchWeather } from "./api.js";
 
-if (localStorage.getItem("historyArray")) {
-  renderHistory(JSON.parse(localStorage.getItem("historyArray")));
-} else {
-  renderHistory([]);
-}
+renderHistory(getHistory());
 
 async function handleCitySearch(city) {
   if (city === "") {
@@ -22,25 +18,28 @@ async function handleCitySearch(city) {
     const isSuccess = await fetchWeather(city);
     if (isSuccess) {
       showCard();
-      if (!localStorage.getItem("historyArray")) {
-        localStorage.setItem("historyArray", JSON.stringify([city]));
-        renderHistory(JSON.parse(localStorage.getItem("historyArray")));
-      } else {
-        const arrayData = JSON.parse(localStorage.getItem("historyArray"));
-        const newArrayData = arrayData.filter((x) => x !== city);
-        if (newArrayData.length > 4) {
-          newArrayData.shift();
-        }
-        localStorage.setItem(
-          "historyArray",
-          JSON.stringify([...newArrayData, city])
-        );
-        renderHistory(JSON.parse(localStorage.getItem("historyArray")));
-      }
+      updateHistory(city);
     } else {
       showError("Ошибка: город не найден");
     }
   }
+}
+
+function getHistory() {
+  if (!localStorage.getItem("historyArray")) {
+    return [];
+  } else {
+    return JSON.parse(localStorage.getItem("historyArray"));
+  }
+}
+function updateHistory(city) {
+  const arrayData = getHistory();
+  const newArrayData = arrayData.filter((x) => x !== city);
+  if (newArrayData.length > 4) {
+    newArrayData.shift();
+  }
+  localStorage.setItem("historyArray", JSON.stringify([...newArrayData, city]));
+  renderHistory([...newArrayData, city]);
 }
 
 form.addEventListener("submit", async (e) => {
